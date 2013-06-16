@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/mes-fichiers.all.min.css"/>
+  </head>
+
+  <body ng-app="mesFichiers">
+    <header>&nbsp;</header>
+    <div class="container">
+      <div class="uploader-app">
+        <div class="row">
+          <div class="span3 sidebar" ng-include src="'nav.html'"></div>
+          <div class="span9 content" ng-view></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <script type="text/javascript" src="js/mes-fichiers.all.min.js"></script>
+    </footer>
+  </body>
+</html>
