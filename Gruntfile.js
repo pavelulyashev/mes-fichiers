@@ -1,70 +1,74 @@
 module.exports = function(grunt) {
   var src = {
     fileupload: [
-      'src/js/libs/fileupload/jquery.ui.widget.min.js',
-      'src/js/libs/fileupload/load-image.min.js',
-      'src/js/libs/fileupload/canvas-to-blob.min.js',
-      'src/js/libs/fileupload/jquery.iframe-transport.js',
-      'src/js/libs/fileupload/jquery.fileupload.js',
-      'src/js/libs/fileupload/jquery.fileupload-process.js',
-      'src/js/libs/fileupload/jquery.fileupload-resize.js',
-      'src/js/libs/fileupload/jquery.fileupload-validate.js'
-    ],
-    angular: [
-      'src/js/libs/angular.min.js',
-      'src/js/libs/angular-resource.min.js',
-      'src/js/libs/fileupload/jquery.fileupload-angular.js'
+      'src/js/vendors/fileupload/jquery.ui.widget.min.js',
+      'src/js/vendors/fileupload/load-image.min.js',
+      'src/js/vendors/fileupload/canvas-to-blob.min.js',
+      'src/js/vendors/fileupload/jquery.iframe-transport.js',
+      'src/js/vendors/fileupload/jquery.fileupload.js',
+      'src/js/vendors/fileupload/jquery.fileupload-process.js',
+      'src/js/vendors/fileupload/jquery.fileupload-resize.js',
+      'src/js/vendors/fileupload/jquery.fileupload-validate.js',
+      'src/js/vendors/fileupload/jquery.fileupload-angular.js'
     ],
     app: [
-      'src/js/mes-fichiers-app.js'
+      'src/js/app/**/*.js'
     ],
-    all: [
-      'src/js/libs/jquery.min.js'
+    vendors: [
+      'src/js/vendors/jquery.min.js',
+      'src/js/vendors/angular.min.js',
+      'src/js/vendors/angular-resource.min.js'
     ]
   };
-  src.all = src.all.concat(src.fileupload)
-                   .concat(src.angular)
-                   .concat(src.app)
-                   .concat(['<%= ngtemplates.app.dest %>']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
     concat: {
       options: {
         separator: '\n'
       },
       dist: {
-        src: src.all,
-        dest: 'dist/js/<%= pkg.name %>.all.js'
+        files: {
+          'dist/js/<%= pkg.name %>.all.min.js': src.vendors
+            .concat(['build/js/jquery.fileupload.all.min.js'])
+            .concat(['build/js/<%= pkg.name %>.js'])
+            .concat(['<%= ngtemplates.app.dest %>']),
+          'dist/css/<%= pkg.name %>.all.min.css': [
+              'src/css/bootstrap.min.css',
+              'build/css/<%= pkg.name %>.css'
+            ]
+        }
       },
-      fileupload: {
-        src: src.fileupload,
-        dest: 'dist/js/jquery.fileupload.all.js'
-      },
-      css: {
-        src: ['src/css/bootstrap.min.css', 'dist/css/<%= pkg.name %>.css'],
-        dest: 'dist/css/<%= pkg.name %>.all.min.css'
+      build: {
+        files: {
+          'build/js/jquery.fileupload.all.js': src.fileupload,
+          'build/js/<%= pkg.name %>.js': src.app
+        }
       }
     },
+
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
       dist: {
         files: {
-          'dist/js/<%= pkg.name %>.all.min.js': ['<%= concat.dist.dest %>']
+          'build/js/jquery.fileupload.all.min.js': ['build/js/jquery.fileupload.all.js'],
+          'build/js/<%= pkg.name %>.js': ['build/js/<%= pkg.name %>.js']
         }
       },
-      fileupload: {
+      dev: {
         files: {
-          'dist/js/jquery.fileupload.all.min.js': ['<%= concat.fileupload.dest %>']
+          'build/js/jquery.fileupload.all.min.js': ['build/js/jquery.fileupload.all.js']
         }
       }
     },
+
     less: {
       dev: {
         files: {
-          'dist/css/<%= pkg.name %>.css': 'src/css/mes-fichiers.less'
+          'build/css/<%= pkg.name %>.css': 'src/css/mes-fichiers.less'
         }
       },
       prod: {
@@ -72,12 +76,13 @@ module.exports = function(grunt) {
           yuicompress: true
         },
         files: {
-          'dist/css/mes-fichiers.css': 'src/css/mes-fichiers.less'
+          'build/css/<%= pkg.name %>.css': 'src/css/mes-fichiers.less'
         }
       }
     },
+
     jshint: {
-      files: ['gruntfile.js', 'src/js/*.js', 'test/**/*.js'],
+      files: ['gruntfile.js', 'src/js/app/**/*.js', 'test/**/*.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -90,9 +95,11 @@ module.exports = function(grunt) {
         }
       }
     },
+
     ngmin: {
 
     },
+
     jasmine: {
 
     },
@@ -111,6 +118,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     ngtemplates: {
       app: {
         options: {
@@ -118,20 +126,20 @@ module.exports = function(grunt) {
           module: 'mesFichiers'
         },
         src: 'build/views/**.html',
-        dest: 'dist/js/templates.js'
+        dest: 'build/js/templates.js'
       }
+    },
+
+    watch: {
+      tasks: ['default']
     }
-//    watch: {
-//      files: ['<%= jshint.files %>'],
-//      tasks: ['jshint']
-//    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 //  grunt.loadNpmTasks('grunt-contrib-ngmin');
 //  grunt.loadNpmTasks('grunt-contrib-jasmine');
-//  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
@@ -141,11 +149,18 @@ module.exports = function(grunt) {
   grunt.registerTask('templates', ['htmlmin', 'ngtemplates']);
   grunt.registerTask('default', [
     'jshint',
+    'less:dev',
+    'templates',
+    'concat:build',
+    'uglify:dev',
+    'concat:dist'
+  ]);
+  grunt.registerTask('dist', [
+    'jshint',
     'less:prod',
     'templates',
-    'concat:dist',
-    'concat:css',
-    'uglify:dist'
+    'concat:build',
+    'uglify:dist',
+    'concat:dist'
   ]);
-
 };
