@@ -131,6 +131,17 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      img: {
+        files: [{
+          cwd: 'src/img/',
+          src: ['*'],
+          dest: 'dist/img/',
+          expand: true
+        }]
+      }
+    },
+
     watch: {
       tasks: ['default']
     }
@@ -142,6 +153,7 @@ module.exports = function(grunt) {
 //  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-angular-templates');
@@ -154,7 +166,8 @@ module.exports = function(grunt) {
     'templates',
     'concat:build',
     'uglify:dev',
-    'concat:dist'
+    'concat:dist',
+    'copy:img'
   ]);
   grunt.registerTask('dist', [
     'jshint',
@@ -162,6 +175,7 @@ module.exports = function(grunt) {
     'templates',
     'concat:build',
     'uglify:dist',
-    'concat:dist'
+    'concat:dist',
+    'copy:img'
   ]);
 };
