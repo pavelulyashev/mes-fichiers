@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git://github.com/pavelulyashev/mes-fichiers.git"
   },
-  "author": "Pavel Ulyashev",
-  "license": "",
+  "author": "Pavel Ulyashev <p.ulyashev@gmail.com>",
+  "license": "BSD",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/pavelulyashev/mes-fichiers/issues"

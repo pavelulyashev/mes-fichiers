@@ -1,3 +1,9 @@
+/*!
+ * Mes Fichiers
+ * Copyright 2013, Pavel Ulyashev
+ *
+ * Licensed under the 3-clause BSD license.
+ */
 (function() {
 'use strict';
 var App = angular.module('mesFichiers', ['ngResource', 'blueimp.fileupload']);
