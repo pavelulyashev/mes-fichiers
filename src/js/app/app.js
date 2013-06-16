@@ -8,7 +8,8 @@ App.provider('appConfig', [
             baseUrl:  '/mes_fichiers/',
             albumsUrl: '/mes_fichiers/rest/albums/',
             filesUrl: '/mes_fichiers/rest/files/',
-            httpPatch: 'PUT'
+            httpPatch: 'PUT',
+            tinymce: false
         };
         this.defaults = App.appConfig =
             angular.extend(defaults, App.appConfig || {});
@@ -114,7 +115,7 @@ App.config([
 App.run([
     '$rootScope', 'appConfig',
     function($rootScope, appConfig) {
-        $rootScope.fileUploadingUrl = appConfig.defaults.filesUrl;
+        $rootScope.conf = appConfig.defaults;
     }
 ]);
 })();

@@ -1,7 +1,7 @@
 angular.module('mesFichiers')
 .controller('FileController', [
-    '$scope', 'MonFichier',
-    function($scope, MonFichier) {
+    '$scope', '$window', 'MonFichier',
+    function($scope, $window, MonFichier) {
         var album = $scope.$parent.album;
         var file = $scope.file;
 
@@ -29,6 +29,13 @@ angular.module('mesFichiers')
             if (confirm('Are you sure you want to remove this file?')) {
                 new MonFichier({id: file.id}).$destroy(removeFileFromAlbum);
             }
+        };
+
+        $scope.sendToParentWindow = function() {
+            var file_ = {
+                url: file.url
+            };
+            $window.parent.postMessage(file_, $window.parent.location.href);
         };
 
         function removeFileFromAlbum() {
