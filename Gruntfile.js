@@ -55,7 +55,8 @@ module.exports = function(grunt) {
       dist: {
         files: {
           'build/js/jquery.fileupload.all.min.js': ['build/js/jquery.fileupload.all.js'],
-          'build/js/<%= pkg.name %>.js': ['build/js/<%= pkg.name %>.js']
+          'build/js/<%= pkg.name %>.js': ['build/js/<%= pkg.name %>.js'],
+          '<%= ngtemplates.app.dest %>': ['<%= ngtemplates.app.dest %>']
         }
       },
       dev: {
