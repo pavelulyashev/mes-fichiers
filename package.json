@@ -11,7 +11,7 @@
     "url": "git://github.com/pavelulyashev/mes-fichiers.git"
   },
   "author": "Pavel Ulyashev",
-  "license": "BSD",
+  "license": "",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/pavelulyashev/mes-fichiers/issues"
@@ -25,6 +25,7 @@
     "grunt-contrib-less": "~0.6.1",
     "grunt-contrib-jasmine": "~0.4.2",
     "grunt-angular-templates": "~0.3.8",
-    "grunt-contrib-htmlmin": "~0.1.3"
+    "grunt-contrib-htmlmin": "~0.1.3",
+    "grunt-contrib-watch": "~0.4.4"
   }
 }
