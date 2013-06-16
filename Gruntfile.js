@@ -54,6 +54,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
+          'dist/js/tinymce-mes-fichiers.min.js': 'src/js/tinymce-mes-fichiers.js',
           'build/js/jquery.fileupload.all.min.js': ['build/js/jquery.fileupload.all.js'],
           'build/js/<%= pkg.name %>.js': ['build/js/<%= pkg.name %>.js'],
           '<%= ngtemplates.app.dest %>': ['<%= ngtemplates.app.dest %>']
@@ -61,6 +62,7 @@ module.exports = function(grunt) {
       },
       dev: {
         files: {
+          'dist/js/tinymce-mes-fichiers.min.js': 'src/js/tinymce-mes-fichiers.js',
           'build/js/jquery.fileupload.all.min.js': ['build/js/jquery.fileupload.all.js']
         }
       }
