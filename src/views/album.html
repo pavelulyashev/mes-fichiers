@@ -32,7 +32,7 @@
     </fieldset>
   </form>
 
-  <form enctype="multipart/form-data" action="/mes_fichiers/rest/files/"
+  <form enctype="multipart/form-data" action="{{ fileUploadingUrl }}"
         method="post"
         ng-show="album.id" class="drop-files-area span4"
         data-fileupload="options">

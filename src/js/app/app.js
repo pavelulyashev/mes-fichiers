@@ -6,8 +6,8 @@ App.provider('appConfig', [
     function() {
         var defaults = {
             baseUrl:  '/mes_fichiers/',
-            albumsUrl: '/mes_fichiers/rest/albums',
-            filesUrl: '/mes_fichiers/rest/files',
+            albumsUrl: '/mes_fichiers/rest/albums/',
+            filesUrl: '/mes_fichiers/rest/files/',
             httpPatch: 'PUT'
         };
         this.defaults = App.appConfig =
@@ -55,11 +55,11 @@ App.config([
         var csrf = appConfig.defaults.csrf;
 
         if (csrf) {
-            var csrfHeader = {};
-            csrfHeader[csrf.header] = csrf.token;
-            angular.extend($httpProvider.defaults.headers.common, csrfHeader);
+            angular.extend($httpProvider.defaults.headers.common, csrf);
             // jQuery-fileupload uses jQuery.ajax
-            jQuery.ajaxSetup(csrfHeader);
+            jQuery.ajaxSetup({
+                headers: csrf
+            });
         }
     }
 ]);
@@ -108,6 +108,13 @@ App.config([
         });
 
         $locationProvider.html5Mode(true);
+    }
+]);
+
+App.run([
+    '$rootScope', 'appConfig',
+    function($rootScope, appConfig) {
+        $rootScope.fileUploadingUrl = appConfig.defaults.filesUrl;
     }
 ]);
 })();
