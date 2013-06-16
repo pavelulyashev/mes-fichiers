@@ -6,10 +6,8 @@ App.provider('appConfig', [
     function() {
         var defaults = {
             baseUrl:  '/mes_fichiers/',
-            rest: {
-                albumsUrl: '/mes_fichiers/rest/albums/',
-                filesUrl: '/mes_fichiers/rest/files/'
-            },
+            albumsUrl: '/mes_fichiers/rest/albums',
+            filesUrl: '/mes_fichiers/rest/files',
             httpPatch: 'PUT'
         };
         this.defaults = App.appConfig =
@@ -26,7 +24,7 @@ App.provider('appConfig', [
 App.factory('MonAlbum', [
     '$resource', 'appConfig',
     function ($resource, appConfig) {
-        return $resource(appConfig.defaults.rest.albumsUrl + ':id', {
+        return $resource(appConfig.defaults.albumsUrl + '/:id', {
             id: '@id' //this binds the ID of the model to the URL param
         }, {
             query: { method: 'GET', isArray: true },
@@ -40,7 +38,7 @@ App.factory('MonAlbum', [
 App.factory('MonFichier', [
     '$resource', 'appConfig',
     function ($resource, appConfig) {
-        return $resource(appConfig.defaults.rest.filesUrl + ':id', {
+        return $resource(appConfig.defaults.filesUrl + '/:id', {
             id: '@id' //this binds the ID of the model to the URL param
         }, {
             query: { method: 'GET', isArray: true },
