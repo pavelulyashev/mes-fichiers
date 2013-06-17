@@ -1,4 +1,4 @@
-Mes Fichiers [me fiʃ'je] (fr. my files)
+Mes Fichiers [me fiʃ'je]  _(fr. "my files")_
 ============
 
 File and album manager written on angularjs.
