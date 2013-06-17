@@ -1,4 +1,6 @@
-Mes Fichiers [me fiʃ'je]
+Mes Fichiers [me fiʃ'je] (fr. my files)
 ============
 
-Readme will be here. Later. But it certainly will!
+File and album manager written on angularjs.
+
+[Demo](http://mes-fichiers.aws.af.cm/)
