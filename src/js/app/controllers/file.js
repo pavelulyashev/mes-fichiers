@@ -31,11 +31,11 @@ angular.module('mesFichiers')
             }
         };
 
-        $scope.sendToParentWindow = function() {
-            var file_ = {
-                url: file.url
-            };
-            $window.parent.postMessage(file_, $window.parent.location.href);
+        $scope.sendFile = function() {
+            var conf = $scope.conf;
+            if (conf.activeMode) {
+                conf.modes[conf.activeMode].sendFile.call($scope, $window);
+            }
         };
 
         function removeFileFromAlbum() {

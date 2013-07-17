@@ -14,8 +14,7 @@ App.provider('appConfig', [
             baseUrl:  '/mes_fichiers/',
             albumsUrl: '/mes_fichiers/rest/albums/',
             filesUrl: '/mes_fichiers/rest/files/',
-            httpPatch: 'PUT',
-            tinymce: false
+            httpPatch: 'PUT'
         };
         this.defaults = App.appConfig =
             angular.extend(defaults, App.appConfig || {});
@@ -122,6 +121,28 @@ App.run([
     '$rootScope', 'appConfig',
     function($rootScope, appConfig) {
         $rootScope.conf = appConfig.defaults;
+        $rootScope.conf.modes = {
+            'tinymce': {
+                sendFile: function($window) {
+                    var file_ = {
+                        url: this.file.url
+                    };
+                    $window.parent.postMessage(
+                        file_, $window.parent.location.href
+                    );
+                }
+            },
+            'django_foreign_key': {
+                sendFile: function($window) {
+                    var fileId = this.file.id;
+                    if ($window.opener) {
+                        $window.opener.dismissRelatedLookupPopup(
+                            $window, fileId
+                        );
+                    }
+                }
+            }
+        };
     }
 ]);
 })();

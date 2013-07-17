@@ -46,8 +46,11 @@
     <ul class="info">
       <li class="size">Size: {{ file.size | formatFileSize }}</li>
       <li class="uploaded">Uploaded: {{ file.created_at | date }}</li>
-      <li ng-show="conf.tinymce">
-        <a href ng-click="sendToParentWindow()">Past into editor</a>
+      <li ng-show="conf.activeMode == 'tinymce'">
+        <a href ng-click="sendFile()">Past into editor</a>
+      </li>
+      <li ng-show="conf.activeMode == 'django_foreign_key'">
+        <a href ng-click="sendFile()">Select</a>
       </li>
     </ul>
   </fieldset>
